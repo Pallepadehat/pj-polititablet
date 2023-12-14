@@ -6,7 +6,7 @@ html,
 body,
 :root {
   height: 100%;
-  background-color: #131417;
+  background-color: transparent;
 }
 
 @layer base {
@@ -78,6 +78,6 @@ body,
     @apply border-border;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-transparent text-foreground;
   }
 }

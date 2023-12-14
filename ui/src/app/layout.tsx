@@ -1,8 +1,10 @@
+import Provider from "@/components/provider";
 import Providers from "@/components/providers";
-import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import Provider from "@/components/provider";
+import Image from "next/image";
+import "./globals.css";
+import { cn } from "@/lib/utils";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,8 +21,15 @@ export default async function RootLayout({
   return (
     <Provider>
       <html lang="en" suppressHydrationWarning>
-        <body className={inter.className}>
-          <Providers>{children}</Providers>
+        <body
+          className={cn(
+            "bg-transparent flex items-center justify-center",
+            inter.className
+          )}
+        >
+          <Providers>
+            <div className="w-[1400px] h-[1200px]">{children}</div>
+          </Providers>
         </body>
       </html>
     </Provider>

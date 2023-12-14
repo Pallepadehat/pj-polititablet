@@ -5,9 +5,11 @@ import Loading from "@/components/loading";
 import { Button } from "@/components/ui/button";
 import { Car, Paperclip, User } from "lucide-react";
 import { signOut, useSession } from "next-auth/react";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import Efterlysninger from "./_components/efterlysninger";
 import KrSager from "./_components/krsager";
+import { useSelector } from "react-redux";
+import { RootState } from "@/state/store";
 
 const DashboardPage = () => {
   const { status, data: session } = useSession({
