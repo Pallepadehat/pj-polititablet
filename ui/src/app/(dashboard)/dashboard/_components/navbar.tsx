@@ -57,7 +57,7 @@ const DashboardNavbar = () => {
     },
   ];
   return (
-    <div className="container bg-[#1B1C1F] flex flex-col">
+    <div className="bg-[#1B1C1F] flex flex-col">
       <div className="bg-[#1B1C1F] p-5 border-b border-[#202022]">
         <div className="flex flex-row justify-between items-end gap-2">
           <div className="flex flex-row gap-6">
