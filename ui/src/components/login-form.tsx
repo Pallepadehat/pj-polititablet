@@ -17,9 +17,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { AlertOctagon } from "lucide-react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 import { Alert, AlertTitle } from "./ui/alert";
+import Link from "next/link";
 
 const formSchema = z.object({
   email: z.string().min(1),

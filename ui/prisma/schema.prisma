@@ -8,12 +8,38 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  relationMode = "prisma"
 }
 
 model TabletUser {
-  id       Int     @id @default(autoincrement())
-  email    String  @unique
-  password String
-  name     String?
-  admin    Boolean? @default(true)
+  id             Int      @id @default(autoincrement())
+  email          String   @unique
+  password       String
+  name           String?
+  admin          Boolean? @default(true)
+  pnummer        String?
+  onDuty         Boolean? @default(false)
+  notifications  Boolean? @default(false)
+}
+
+model TabletSager {
+  id        Int     @id @default(autoincrement())
+  sagsNr String @unique
+  personNr String
+  pNummer String
+  beskrivelse String?
+  boede String?
+  faengsel String?
+  klip String?
+  oprettet DateTime @default(now())
+  opdateret DateTime @updatedAt
+} 
+
+model TabletEfterlysninger {
+  id          Int     @id @default(autoincrement())
+  title String
+  beskrivelse String
+  oprettet   DateTime @default(now())
+  lukket     Boolean @default(false)
+  opdateret DateTime @updatedAt
 }

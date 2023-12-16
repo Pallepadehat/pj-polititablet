@@ -1,12 +1,13 @@
 import Provider from "@/components/provider";
 import Providers from "@/components/providers";
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Roboto } from "next/font/google";
 import Image from "next/image";
 import "./globals.css";
 import { cn } from "@/lib/utils";
+import { getServerSession } from "next-auth";
 
-const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({ subsets: ["latin"], weight: "400" });
 
 export const metadata: Metadata = {
   title: process.env.NEXT_PUBLIC_RESOURCE_NAME,
@@ -21,15 +22,8 @@ export default async function RootLayout({
   return (
     <Provider>
       <html lang="en" suppressHydrationWarning>
-        <body
-          className={cn(
-            "bg-transparent flex items-center justify-center",
-            inter.className
-          )}
-        >
-          <Providers>
-            <div className="w-[1400px] h-[1200px]">{children}</div>
-          </Providers>
+        <body className={cn(roboto.className)}>
+          <Providers>{children}</Providers>
         </body>
       </html>
     </Provider>

@@ -10,11 +10,11 @@ export function middleware(req: NextRequest) {
     return NextResponse.redirect(`${req.url}?preview=true`);
   }
 
+  console.log(req.url);
+
   return;
 }
 
-export { default } from "next-auth/middleware";
-
 export const config = {
-  matcher: ["/", "/dashboard", "/app/:path*", "/other/:path*", "/help/:path*"],
+  matcher: ["/", "/dashboard"],
 };

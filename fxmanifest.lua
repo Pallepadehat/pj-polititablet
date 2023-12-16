@@ -1,10 +1,10 @@
-fx_version "cerulean"
+fx_version "cerulean "
 
 game "gta5"
 
-description "PJ-Scripts | Politi Tablet made by Tramper Torbenn & Pallepadehat"
+description "Pallepadehat"
 
-author "Tramper Torbenn & Pallepadehat"
+author "Pallepadehat"
 
 client_scripts {
     "config.lua",
@@ -16,4 +16,4 @@ server_scripts {
     "server.lua"
 }
 
-ui_page "http://localhost:3000"
+ui_page "https://localhost:3000"
