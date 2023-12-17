@@ -1,4 +1,4 @@
-import { AlertOctagon, Info } from "lucide-react";
+import { AlertOctagon, Info, Paperclip, User } from "lucide-react";
 import DashboardOverviewItem from "./DashboardOverview-items";
 import SenesteSager from "./seneste-sager";
 import { Alert } from "@/components/ui/alert";
@@ -9,6 +9,9 @@ export const DashboardOverviewScreen = () => {
     <div className="w-full h-full">
       <div className="p-10">
         <h1 className="text-4xl font-semibold text-white">Oversigt</h1>
+        <p className="text-white/60">
+          Få et nemt overblik over din Politi Station
+        </p>
       </div>
       <div className="pt-5 px-10 text-white">
         <div className="grid grid-cols-3 gap-5">
@@ -16,12 +19,12 @@ export const DashboardOverviewScreen = () => {
           <DashboardOverviewItem
             title="Antal Personer"
             value={100}
-            icon={Info}
+            icon={User}
           />
           <DashboardOverviewItem
             title="Antal Efterlysninger"
             value={15}
-            icon={Info}
+            icon={Paperclip}
           />
         </div>
       </div>

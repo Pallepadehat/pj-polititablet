@@ -1,4 +1,5 @@
 "use client";
+import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Toast } from "@/components/ui/toast";
@@ -14,18 +15,21 @@ import {
   Database,
   Info,
   LayoutDashboard,
+  LogOut,
   LucideIcon,
   Users,
 } from "lucide-react";
+import { signOut } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const AboutMe = () => {
+  const onSignOut = () => signOut();
   return (
     <div className="w-full">
       <div className="flex flex-col w-full">
-        <div className="px-4 p-2 bg-[#2C2C2E] w-full rounded-t-[14px] flex flex-row gap-3 items-center">
+        <div className="px-4 p-2 bg-[#2C2C2E] w-full rounded-t-[14px] flex flex-row gap-3 items-center ">
           <div className="flex justify-between w-full items-center">
             <div className="flex flex-row gap-2 items-center">
               <div className="w-8 h-8 bg-[#FF9F0A] rounded-[7px] flex items-center justify-center">
@@ -36,8 +40,9 @@ export const AboutMe = () => {
             <Switch />
           </div>
         </div>
+
         <Separator className="bg-[#38383A]" />
-        <div className="px-4 p-2 bg-[#2C2C2E] w-full rounded-b-[14px] flex flex-row gap-3 items-center">
+        <div className="px-4 p-2 bg-[#2C2C2E] w-full flex rounded-b-[14px] flex-row gap-3 items-center">
           <div className="flex justify-between w-full items-center">
             <div className="flex flex-row gap-2 items-center">
               <div className="w-8 h-8 bg-[#0A84FF] rounded-[7px] flex items-center justify-center">
@@ -81,6 +86,7 @@ export const NavigationTabs = () => {
       isAdmin: false,
       href: "/dashboard/kriminalregister",
     },
+
     {
       id: 4,
       label: "Administration",
@@ -117,7 +123,6 @@ export const NavigationTabs = () => {
                   </div>
                 </div>
               </div>
-              {item.id && <Separator className="bg-[#38383A]" />}
               {item.id !== 4 && <Separator className="bg-[#38383A]" />}
             </Link>
           ))}
@@ -133,16 +138,25 @@ const Icon = ({ Icon }: { Icon: LucideIcon }) => {
 
 export const ActiveNews = () => {
   const [notifications, setIsNotification] = useState();
-  const router = useRouter();
   const setData = async (data: any) => {
     try {
       axios.patch("/api/notifications", { notifications: data });
-      toast({
-        title: "Notification Slået Til",
-        description: "Du ville nu begynde at modtage notificationer",
-        variant: "ipad",
-        duration: 1500,
-      });
+      if (data === true) {
+        toast({
+          title: "Notification Slået Til",
+          description: "Du ville nu begynde at modtage notificationer",
+          variant: "ipad",
+          duration: 1500,
+        });
+      } else {
+        toast({
+          title: "Notification Slået Fra",
+          description: "Du ville nu begynde at modtage notificationer",
+          variant: "ipad",
+          duration: 1500,
+        });
+      }
+
       setIsNotification(data);
     } catch (error) {
       console.log(error);

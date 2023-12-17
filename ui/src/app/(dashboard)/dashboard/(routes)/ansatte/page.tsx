@@ -1,10 +1,6 @@
 "use client";
 import { DateTimeDisplay, IconDisplay } from "@/components/topmenu";
-import { RootState } from "@/state/store";
-import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { redirect, useSearchParams } from "next/navigation";
-import { useSelector } from "react-redux";
 import { DashboardSidebar } from "../../_components/DashboardSidebar";
 import { AnsatteOverviewScreen } from "./_components/AnsatteOverview";
 
