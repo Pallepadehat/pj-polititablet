@@ -42,7 +42,7 @@ const DashboardPage = () => {
 
         {/* Centered content (LoginForm) */}
         <div className="absolute inset-0 flex justify-center items-center text-black">
-          <div className="w-[1110px] h-[800px] rounded-xl flex flex-row">
+          <div className="w-[1110px] h-[800px] rounded-xl bg-[#000000]  flex flex-row">
             <DashboardSidebar />
 
             {/* Right-side overview screen components */}

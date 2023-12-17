@@ -6,7 +6,7 @@ import NyesteEfterlysning from "./nyeste-efterlysning";
 
 export const DashboardOverviewScreen = () => {
   return (
-    <div className="bg-[#000000] w-full h-full">
+    <div className="w-full h-full">
       <div className="p-10">
         <h1 className="text-4xl font-semibold text-white">Oversigt</h1>
       </div>

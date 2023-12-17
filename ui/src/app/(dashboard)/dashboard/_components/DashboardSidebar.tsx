@@ -21,7 +21,7 @@ export const DashboardSidebar = () => {
   const alias = shortenUsernameToAlias(username, 2);
 
   return (
-    <div className="h-full bg-[#000000] w-[500px] border-r border-[#38383A]">
+    <div className="h-full w-[500px] border-r border-[#38383A]">
       <ScrollArea className=" h-[800px] pt-10">
         <div className="flex flex-col justify-between items-start ">
           <div className="pt-10 p-5 w-full">

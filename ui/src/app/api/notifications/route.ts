@@ -24,7 +24,28 @@ export async function PATCH(req: Request) {
 
     return NextResponse.json(user);
   } catch (error) {
-    console.log("[NOTIFICATIONS]", error);
+    console.log("[NOTIFICATIONS_PATCH]", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
+
+export async function GET() {
+  try {
+    const data = await getServerSession(authOptions);
+
+    if (!data) {
+      return new Response("Not authenticated", { status: 401 });
+    }
+
+    const user = await prisma.tabletUser.findUnique({
+      where: {
+        email: data.user?.email!,
+      },
+    });
+
+    return NextResponse.json(user);
+  } catch (error) {
+    console.log("[NOTIFICATIONS_GET]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }

@@ -18,6 +18,8 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export const AboutMe = () => {
   return (
@@ -131,24 +133,37 @@ const Icon = ({ Icon }: { Icon: LucideIcon }) => {
 };
 
 export const ActiveNews = () => {
+  const [notifications, setIsNotification] = useState();
+  const router = useRouter();
   const setData = async (data: any) => {
     try {
       axios.patch("/api/notifications", { notifications: data });
       toast({
-        title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request.",
+        title: "Notification Slået Til",
+        description: "Du ville nu begynde at modtage notificationer",
         variant: "ipad",
         duration: 1500,
       });
+      setIsNotification(data);
     } catch (error) {
-      toast({
-        title: "Uh oh! Something went wrong.",
-        description: "There was a problem with your request.",
-        variant: "ipad",
-      });
       console.log(error);
     }
   };
+
+  async function GETData() {
+    try {
+      const response = await axios.get("/api/notifications");
+      const responseData = response.data.notifications; // Extract the relevant data from the response
+
+      setIsNotification(responseData);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    GETData();
+  }, []);
 
   return (
     <div className="w-full">
@@ -161,7 +176,10 @@ export const ActiveNews = () => {
               </div>
               <h1 className="text-[18px]">Notificationer</h1>
             </div>
-            <Switch onCheckedChange={(value) => setData(value)} />
+            <Switch
+              onCheckedChange={(value) => setData(value)}
+              checked={notifications}
+            />
           </div>
         </div>
         <Separator className="bg-[#38383A]" />

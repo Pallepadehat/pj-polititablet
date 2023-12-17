@@ -14,7 +14,7 @@ const ToastViewport = React.forwardRef<
   <ToastPrimitives.Viewport
     ref={ref}
     className={cn(
-      "fixed top-[270px] z-[100] flex flex-row gap-5 justify-center w-full",
+      "fixed top-[340px] z-[100] flex flex-row gap-5 justify-center w-full",
       className
     )}
     {...props}
@@ -23,18 +23,18 @@ const ToastViewport = React.forwardRef<
 ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
 
 const toastVariants = cva(
-  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-y-[var(--radix-toast-swipe-end-y)] data-[swipe=move]:translate-y-[var(--radix-toast-swipe-move-y)] data-[swipe=move]:transition-none data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out-to-top data-[state=closed]:fade-out-80 data-[state=closed]:slide-out-to-top data-[state=open]:slide-in-from-top data-[state=open]:sm:slide-in-from-top",
+  "group pointer-events-auto relative flex w-full items-center justify-between space-x-4 overflow-hidden rounded-md border p-6 pr-8 shadow-lg transition-all  data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out-to-top data-[state=closed]:fade-out-0 data-[state=closed]:slide-out-to-top-full data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-top-full",
   {
     variants: {
       variant: {
         default: "border bg-background text-foreground",
         destructive:
           "destructive group border-destructive bg-destructive text-destructive-foreground",
-        ipad: "w-[500px] h-[60px] rounded-full p-2 px-5 bg-black/80 backdrop-blur text-white border-white/30 flex flex-row gap-5",
+        ipad: "w-[500px] h-[60px] rounded-full p-2 px-5 bg-black/90 text-white border-white/30 flex flex-row gap-5 ",
       },
     },
     defaultVariants: {
-      variant: "default",
+      variant: "ipad",
     },
   }
 );
