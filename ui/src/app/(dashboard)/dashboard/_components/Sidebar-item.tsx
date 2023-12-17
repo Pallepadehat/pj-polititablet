@@ -95,32 +95,31 @@ export const NavigationTabs = () => {
       <div className="w-full">
         <div className="flex flex-col w-full">
           {routes.map((item, idx) => (
-            <div key={idx}>
-              <Link href={item.href}>
-                <div
-                  className={cn(
-                    "p-2 px-4 bg-[#2C2C2E]  w-full  flex flex-row gap-3 items-center",
-                    item.id === 1 && "rounded-t-[14px]",
-                    item.id === 4 && "rounded-b-[14px]"
-                  )}
-                >
-                  <div className="flex w-full items-center ">
-                    <div className="flex flex-row gap-2 items-center">
-                      <div
-                        className={cn(
-                          "w-8 h-8 rounded-[7px] flex items-center justify-center",
-                          item.color
-                        )}
-                      >
-                        <Icon Icon={item.Icon} />
-                      </div>
-                      <h1 className="text-[18px]">{item.label}</h1>
+            <Link href={item.href} key={idx}>
+              <div
+                className={cn(
+                  "p-2 px-4 bg-[#2C2C2E]  w-full  flex flex-row gap-3 items-center",
+                  item.id === 1 && "rounded-t-[14px]",
+                  item.id === 4 && "rounded-b-[14px]"
+                )}
+              >
+                <div className="flex w-full items-center ">
+                  <div className="flex flex-row gap-2 items-center">
+                    <div
+                      className={cn(
+                        "w-8 h-8 rounded-[7px] flex items-center justify-center",
+                        item.color
+                      )}
+                    >
+                      <Icon Icon={item.Icon} />
                     </div>
+                    <h1 className="text-[18px]">{item.label}</h1>
                   </div>
                 </div>
-                {item.id !== 4 && <Separator className="bg-[#38383A]" />}
-              </Link>
-            </div>
+              </div>
+              {item.id && <Separator className="bg-[#38383A]" />}
+              {item.id !== 4 && <Separator className="bg-[#38383A]" />}
+            </Link>
           ))}
         </div>
       </div>
