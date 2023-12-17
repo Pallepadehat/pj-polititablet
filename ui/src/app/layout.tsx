@@ -6,6 +6,7 @@ import Image from "next/image";
 import "./globals.css";
 import { cn } from "@/lib/utils";
 import { getServerSession } from "next-auth";
+import { Toaster } from "@/components/ui/toaster";
 
 const roboto = Roboto({ subsets: ["latin"], weight: "400" });
 
@@ -23,7 +24,10 @@ export default async function RootLayout({
     <Provider>
       <html lang="en" suppressHydrationWarning>
         <body className={cn(roboto.className)}>
-          <Providers>{children}</Providers>
+          <Providers>
+            {children}
+            <Toaster />
+          </Providers>
         </body>
       </html>
     </Provider>

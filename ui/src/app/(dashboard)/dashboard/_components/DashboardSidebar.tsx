@@ -3,6 +3,7 @@ import { Separator } from "@/components/ui/separator";
 import AboutMe, { ActiveNews, NavigationTabs } from "./Sidebar-item";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { useSession } from "next-auth/react";
+import Logo from "@/components/Logo";
 
 export const DashboardSidebar = () => {
   const { status, data: session } = useSession();
@@ -25,7 +26,7 @@ export const DashboardSidebar = () => {
         <div className="flex flex-col justify-between items-start ">
           <div className="pt-10 p-5 w-full">
             <div className="flex flex-col gap-5 text-white w-full">
-              <h1 className="font-semibold text-3xl">Oversigt</h1>
+              <Logo />
               <div className="flex flex-col">
                 <div className="p-4 bg-[#2C2C2E] w-full rounded-t-[14px] flex flex-row gap-3 items-center">
                   <Avatar className="w-14 h-14">
@@ -54,7 +55,7 @@ export const DashboardSidebar = () => {
               </div>
               <AboutMe />
               <NavigationTabs />
-              <ActiveNews name={session?.user?.name!} />
+              <ActiveNews />
             </div>
           </div>
         </div>

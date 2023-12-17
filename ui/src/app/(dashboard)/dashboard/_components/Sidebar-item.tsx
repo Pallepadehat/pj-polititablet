@@ -1,16 +1,14 @@
 "use client";
 import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
-import { prisma } from "@/lib/prisma";
+import { Toast } from "@/components/ui/toast";
+import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
-import { TabletUser } from "@prisma/client";
+import axios from "axios";
 import {
-  ArrowLeft,
   ArrowRight,
-  ArrowRightIcon,
   BadgePlusIcon,
   Bell,
-  BellMinus,
   BellOff,
   BellRing,
   Database,
@@ -20,7 +18,6 @@ import {
   Users,
 } from "lucide-react";
 import Link from "next/link";
-import { useState } from "react";
 
 export const AboutMe = () => {
   return (
@@ -133,8 +130,25 @@ const Icon = ({ Icon }: { Icon: LucideIcon }) => {
   return <Icon />;
 };
 
-export const ActiveNews = ({ name }: { name: string }) => {
-  const setData = () => {};
+export const ActiveNews = () => {
+  const setData = async (data: any) => {
+    try {
+      axios.patch("/api/notifications", { notifications: data });
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        variant: "ipad",
+        duration: 1500,
+      });
+    } catch (error) {
+      toast({
+        title: "Uh oh! Something went wrong.",
+        description: "There was a problem with your request.",
+        variant: "ipad",
+      });
+      console.log(error);
+    }
+  };
 
   return (
     <div className="w-full">
@@ -147,7 +161,7 @@ export const ActiveNews = ({ name }: { name: string }) => {
               </div>
               <h1 className="text-[18px]">Notificationer</h1>
             </div>
-            <Switch onCheckedChange={() => setData} />
+            <Switch onCheckedChange={(value) => setData(value)} />
           </div>
         </div>
         <Separator className="bg-[#38383A]" />
