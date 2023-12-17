@@ -68,7 +68,7 @@ export function AnsatteTable<TData, TValue>({
         <Button
           variant="ipad"
           className="flex flex-row items-center gap-1"
-          onClick={() => router.refresh()}
+          onClick={() => window.location.reload()}
         >
           <RefreshCcw className="w-5 h-5" />
           Refresh
