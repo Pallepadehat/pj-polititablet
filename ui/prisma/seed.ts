@@ -13,6 +13,7 @@ async function main() {
       password: password,
       name: "Pallepadehat",
       admin: true,
+      pnummer: "P-01",
     },
   });
   console.log({ user });

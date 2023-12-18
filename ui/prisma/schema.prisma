@@ -9,47 +9,56 @@ datasource db {
 }
 
 model TabletUser {
-  id             Int      @id @default(autoincrement())
-  email          String   @unique
-  password       String
-  name           String?
-  admin          Boolean? @default(true)
-  pnummer        String?
-  onDuty         Boolean? @default(false)
-  notifications  Boolean? @default(false)
-  
-  // Relations
-  tabletSager            TabletSager[] @relation("participatingOfficers")
-  createdEfterlysninger TabletEfterlysninger[] @relation("createdEfterlysninger")
+  id                   Int          @id @default(autoincrement())
+  email                String       @unique
+  password             String
+  name                 String?
+  admin                Boolean?     @default(true)
+  pnummer              String?
+  onDuty               Boolean?     @default(false)
+  notifications        Boolean?     @default(false)
+  involvedOfficers     Staff[]      @relation("InvolvedOfficers")
+  createdEfterlysninger Efterlysning[] @relation("CreatedByUser")
+  createdEfterlysningerId Int?
 }
 
-model TabletSager {
-  id        Int     @id @default(autoincrement())
-  sagsNr    String  @unique
-  personNr  String 
-  pNummer   String
-  beskrivelse String?
-  boede     String?
-  faengsel  String?
-  klip     String?
-  oprettet  DateTime @default(now())
-  opdateret DateTime @updatedAt
-  
-  // Relations
-  participatingOfficers TabletUser[] @relation("participatingOfficers")
+model Citizen {
+  id            Int       @id @default(autoincrement())
+  name          String?
+  age           Int?
+  licensePoints Int?      @default(0)
+  hasLicense    Boolean?  @default(false)
+  staffEntries  Staff[]
+  created       DateTime  @default(now())
+  updated       DateTime  @updatedAt
 }
 
-model TabletEfterlysninger {
-  id          Int     @id @default(autoincrement())
-  title       String
-  beskrivelse String
-  oprettet    DateTime @default(now())
-  lukket     Boolean @default(false)
-  opdateret   DateTime @updatedAt
-  
-  // Relation
-  createdBy TabletUser @relation("createdEfterlysninger", fields: [createdById], references: [id])
-  createdById Int
+model Staff {
+  id              Int       @id @default(autoincrement())
+  caseNumber      String?
+  responsible     String?
+  fineAmount      Float?
+  prisonMonths    Int?
+  licensePoints   Int?
+  created         DateTime  @default(now())
+  updated         DateTime  @updatedAt
 
-  @@index([createdById])
+  citizenId       Int
+  citizen         Citizen   @relation(fields: [citizenId], references: [id])
+
+  involvedOfficers TabletUser[] @relation("InvolvedOfficers")
+
+  @@index([citizenId])
+}
+
+model Efterlysning {
+  id            Int       @id @default(autoincrement())
+  title         String
+  beskrivelse   String
+  tabletUserId  Int
+  created       DateTime  @default(now())
+  updated       DateTime  @updatedAt
+
+  createdByUser TabletUser @relation("CreatedByUser", fields: [tabletUserId], references: [id])
+  @@index([tabletUserId])
 }

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { TabletEfterlysninger, TabletSager } from "@prisma/client";
+import { Citizen, Efterlysning, Staff } from "@prisma/client";
 import { AlertOctagon, Info, Paperclip, User } from "lucide-react";
 import DashboardOverviewItem from "./DashboardOverview-items";
 import SenesteSager from "./seneste-sager";
@@ -17,19 +17,27 @@ export const DashboardOverviewScreen = () => {
 
   const fetchSagerData = async () => {
     try {
-      const response = await axios.get<TabletSager[]>("/api/sager");
+      const response = await axios.get<Staff[]>("/api/sager");
 
       if (Array.isArray(response.data) && response.data.length > 0) {
         // Calculate total number of cases
         const totalSagerCount = response.data.length;
         setTotalSager(totalSagerCount);
+      } else {
+        console.error("No data or empty array returned from the server.");
+      }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
 
-        // Calculate total number of persons
-        const totalPersonerCount = response.data.reduce(
-          (acc, sager) => acc + (sager.personNr ? 1 : 0),
-          0
-        );
-        setTotalPersoner(totalPersonerCount);
+  const fetchBorgerData = async () => {
+    try {
+      const response = await axios.get<Citizen[]>("/api/borger");
+
+      if (Array.isArray(response.data) && response.data.length > 0) {
+        const totalborger = response.data.length;
+        setTotalPersoner(totalborger);
       } else {
         console.error("No data or empty array returned from the server.");
       }
@@ -40,9 +48,7 @@ export const DashboardOverviewScreen = () => {
 
   const fetchEfterlysningerData = async () => {
     try {
-      const response = await axios.get<TabletEfterlysninger[]>(
-        "/api/efterlysninger"
-      );
+      const response = await axios.get<Efterlysning[]>("/api/efterlysninger");
 
       if (Array.isArray(response.data) && response.data.length > 0) {
         // Calculate total number of persons
@@ -62,6 +68,7 @@ export const DashboardOverviewScreen = () => {
   useEffect(() => {
     fetchSagerData();
     fetchEfterlysningerData();
+    fetchBorgerData();
   }, []);
 
   return (

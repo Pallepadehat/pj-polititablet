@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { columns } from "./DataTable/columns";
 import { DataTable } from "./DataTable/data-table";
 import { useEffect, useState } from "react";
-import { TabletSager } from "@prisma/client";
+
 import axios from "axios";
 
 const SenesteSager = () => {

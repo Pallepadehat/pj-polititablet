@@ -11,11 +11,11 @@ export async function GET() {
       return new Response("Not authenticated", { status: 401 });
     }
 
-    const efterlysninger = await prisma.efterlysning.findMany();
+    const citizen = await prisma.citizen.findMany();
 
-    return NextResponse.json(efterlysninger);
+    return NextResponse.json(citizen);
   } catch (error) {
-    console.log("[EFTERLYSNINGER_GET]", error);
+    console.log("[BORGER_GET]", error);
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
