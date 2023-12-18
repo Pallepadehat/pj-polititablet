@@ -12,15 +12,15 @@ export type Payment = {
 
 export const columns: ColumnDef<Payment>[] = [
   {
-    accessorKey: "sagsnr",
+    accessorKey: "sagsNr",
     header: "Sags Nr.",
   },
   {
-    accessorKey: "personid",
+    accessorKey: "personNr",
     header: "Person Nr.",
   },
   {
-    accessorKey: "betjentnr",
+    accessorKey: "pNummer",
     header: "P Nummer",
   },
 ];

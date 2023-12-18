@@ -48,3 +48,35 @@ export async function POST(req: Request) {
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const datas = await getServerSession(authOptions);
+
+    if (!datas) {
+      return new NextResponse("Not authenticated", { status: 401 });
+    }
+
+    const userisAdmin = await prisma.tabletUser.findUnique({
+      where: {
+        email: datas.user?.email!,
+      },
+    });
+
+    if (!userisAdmin?.admin) {
+      return new NextResponse("Not Admin", { status: 401 });
+    }
+
+    const data = await req.json();
+
+    const user = await prisma.tabletUser.delete({
+      where: {
+        id: data,
+      },
+    });
+    return NextResponse.json(user);
+  } catch (error) {
+    console.log("[USER_DELETE]", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}

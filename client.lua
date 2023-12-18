@@ -1,3 +1,22 @@
+
+RegisterNetEvent('esx:playerLoaded')
+AddEventHandler('esx:playerLoaded', function(xPlayer)
+	ESX.PlayerData = xPlayer
+	ESX.PlayerLoaded = true
+end)
+
+RegisterNetEvent('esx:onPlayerLogout')
+AddEventHandler('esx:onPlayerLogout', function()
+	ESX.PlayerLoaded = false
+	ESX.PlayerData = {}
+end)
+
+local function isPlayerPolice()
+    local xPlayer = ESX.GetPlayerData()
+    return xPlayer and xPlayer.job and xPlayer.job.name == 'police'
+end
+
+
 local function displayNUI(display)
     SendNUIMessage({
         type = "app/setDisplay",
@@ -6,15 +25,24 @@ local function displayNUI(display)
     SetNuiFocus(display, display)
 end
 
-
 RegisterKeyMapping("+"..cfg.cmd, "Open "..cfg.resourceName.." NUI", "keyboard", cfg.hotkey)
 RegisterCommand("+"..cfg.cmd, function()
-    displayNUI(true)
-end)
+    local source = source
+    if isPlayerPolice(source) then
+        displayNUI(true)
+    else
+        
+    end
+end, false)
 
 RegisterCommand(cfg.cmd, function(source, args, raw)
-    displayNUI(true)
-end)
+    local source = source
+    if isPlayerPolice(source) then
+        displayNUI(true)
+    else
+    end
+end, false)
+
 RegisterCommand(cfg.cmd.."_close", function(source, args, raw)
     displayNUI(false)
 end)
@@ -38,4 +66,16 @@ RegisterNUICallback("getPlayerCount", function(data, cb)
     end)
 end)
 
+RegisterNUICallback("getServerName", function(data, cb)
+    TriggerServerEvent(cfg.resourceName..":getServerName")
+    RegisterNetEvent(cfg.resourceName..":getServerName")
+    AddEventHandler(cfg.resourceName..":getServerName", function(serverName)
+        cb(serverName)
+    end)
+end)
 
+
+
+RegisterNUICallback("getServerName", function(data, cb)
+    TriggerServerEvent(cfg.resourceName..":getServerName")
+end)

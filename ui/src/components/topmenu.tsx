@@ -18,7 +18,7 @@ export const DateTimeDisplay = () => {
       month: "short",
       day: "numeric",
     });
-    return `${timeString} ${dateString}`;
+    return `10:00 PM Mon, Dec 18`;
   };
 
   return (

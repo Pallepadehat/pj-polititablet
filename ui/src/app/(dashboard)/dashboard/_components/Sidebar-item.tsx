@@ -4,6 +4,7 @@ import { Separator } from "@/components/ui/separator";
 import { Switch } from "@/components/ui/switch";
 import { Toast } from "@/components/ui/toast";
 import { toast } from "@/components/ui/use-toast";
+import { nuiCallback } from "@/lib/nuiCallback";
 import { cn } from "@/lib/utils";
 import axios from "axios";
 import {
@@ -26,10 +27,11 @@ import { useEffect, useState } from "react";
 
 export const AboutMe = () => {
   const onSignOut = () => signOut();
+
   return (
     <div className="w-full">
       <div className="flex flex-col w-full">
-        <div className="px-4 p-2 bg-[#2C2C2E] w-full rounded-t-[14px] flex flex-row gap-3 items-center ">
+        <div className="px-4 p-2 bg-[#1C1C1E] w-full rounded-t-[14px] flex flex-row gap-3 items-center ">
           <div className="flex justify-between w-full items-center">
             <div className="flex flex-row gap-2 items-center">
               <div className="w-8 h-8 bg-[#FF9F0A] rounded-[7px] flex items-center justify-center">
@@ -42,7 +44,7 @@ export const AboutMe = () => {
         </div>
 
         <Separator className="bg-[#38383A]" />
-        <div className="px-4 p-2 bg-[#2C2C2E] w-full flex rounded-b-[14px] flex-row gap-3 items-center">
+        <div className="px-4 p-2 bg-[#1C1C1E] w-full flex rounded-b-[14px] flex-row gap-3 items-center">
           <div className="flex justify-between w-full items-center">
             <div className="flex flex-row gap-2 items-center">
               <div className="w-8 h-8 bg-[#0A84FF] rounded-[7px] flex items-center justify-center">
@@ -104,7 +106,7 @@ export const NavigationTabs = () => {
             <Link href={item.href} key={idx}>
               <div
                 className={cn(
-                  "p-2 px-4 bg-[#2C2C2E]  w-full  flex flex-row gap-3 items-center",
+                  "p-2 px-4 bg-[#1C1C1E]  w-full  flex flex-row gap-3 items-center",
                   item.id === 1 && "rounded-t-[14px]",
                   item.id === 4 && "rounded-b-[14px]"
                 )}
@@ -181,7 +183,7 @@ export const ActiveNews = () => {
   return (
     <div className="w-full">
       <div className="flex flex-col w-full">
-        <div className="px-4 p-2 bg-[#2C2C2E] w-full rounded-t-[14px] flex flex-row gap-3 items-center">
+        <div className="px-4 p-2 bg-[#1C1C1E] w-full rounded-t-[14px] flex flex-row gap-3 items-center">
           <div className="flex justify-between w-full items-center">
             <div className="flex flex-row gap-2 items-center">
               <div className="w-8 h-8 bg-red-500 rounded-[7px] flex items-center justify-center">
@@ -196,7 +198,7 @@ export const ActiveNews = () => {
           </div>
         </div>
         <Separator className="bg-[#38383A]" />
-        <div className="px-4 p-2 bg-[#2C2C2E] w-full rounded-b-[14px] flex flex-row gap-3 items-center">
+        <div className="px-4 p-2 bg-[#1C1C1E] w-full rounded-b-[14px] flex flex-row gap-3 items-center">
           <div className="flex justify-between w-full items-center">
             <div className="flex flex-row gap-2 items-center">
               <div className="w-8 h-8 bg-purple-500 rounded-[7px] flex items-center justify-center">

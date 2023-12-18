@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -20,26 +17,39 @@ model TabletUser {
   pnummer        String?
   onDuty         Boolean? @default(false)
   notifications  Boolean? @default(false)
+  
+  // Relations
+  tabletSager            TabletSager[] @relation("participatingOfficers")
+  createdEfterlysninger TabletEfterlysninger[] @relation("createdEfterlysninger")
 }
 
 model TabletSager {
   id        Int     @id @default(autoincrement())
-  sagsNr String @unique
-  personNr String
-  pNummer String
+  sagsNr    String  @unique
+  personNr  String 
+  pNummer   String
   beskrivelse String?
-  boede String?
-  faengsel String?
-  klip String?
-  oprettet DateTime @default(now())
+  boede     String?
+  faengsel  String?
+  klip     String?
+  oprettet  DateTime @default(now())
   opdateret DateTime @updatedAt
-} 
+  
+  // Relations
+  participatingOfficers TabletUser[] @relation("participatingOfficers")
+}
 
 model TabletEfterlysninger {
   id          Int     @id @default(autoincrement())
-  title String
+  title       String
   beskrivelse String
-  oprettet   DateTime @default(now())
+  oprettet    DateTime @default(now())
   lukket     Boolean @default(false)
-  opdateret DateTime @updatedAt
+  opdateret   DateTime @updatedAt
+  
+  // Relation
+  createdBy TabletUser @relation("createdEfterlysninger", fields: [createdById], references: [id])
+  createdById Int
+
+  @@index([createdById])
 }

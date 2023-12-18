@@ -12,7 +12,7 @@ const DashboardOverviewItem = ({
   icon: Icon,
 }: DashboardOverviewItemProps) => {
   return (
-    <div className="px-4 py-7 bg-[#2C2C2E] w-full rounded-[14px] flex flex-col gap-2 items-center">
+    <div className="px-4 py-7 bg-[#1C1C1E] w-full rounded-[14px] flex flex-col gap-2 items-center">
       <div className="flex flex-col gap-2 items-center">
         <div className="flex flex-row text-[#EBEBF5]/60 items-center">
           <div className="w-10 h-10 rounded-[7px] flex items-center justify-center ">

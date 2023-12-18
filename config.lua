@@ -2,5 +2,5 @@ cfg = {}
 
 cfg.resourceName = GetCurrentResourceName()
 
-cfg.cmd = "openNUI"
+cfg.cmd = "policemdt"
 cfg.hotkey = "H"

@@ -1,4 +1,5 @@
-RegisterServerEvent(cfg.resourceName..":getPlayerCount")
-AddEventHandler(cfg.resourceName..":getPlayerCount", function()
-    TriggerClientEvent(cfg.resourceName..":getPlayerCount", source, GetNumPlayerIndices())
+RegisterServerEvent(cfg.resourceName..":getServerName")
+AddEventHandler(cfg.resourceName..":getServerName", function()
+    local serverName = GetConvar("sv_hostname", "Default Server Name")
+    TriggerClientEvent(cfg.resourceName..":getServerName", source, serverName)
 end)

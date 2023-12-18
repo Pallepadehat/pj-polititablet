@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 
 const NyesteEfterlysning = () => {
   return (
-    <div className="bg-[#2C2C2E] rounded-[14px] w-full h-[420px]">
+    <div className="bg-[#1C1C1E] rounded-[14px] w-full h-[420px]">
       <div className="flex flex-row justify-between px-5 mt-5 items-center">
         <h1 className="text-lg font-semibold text-white">
           Nyeste Efterlysninger

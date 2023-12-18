@@ -16,4 +16,10 @@ server_scripts {
     "server.lua"
 }
 
+shared_script '@es_extended/imports.lua'
+
+dependencies {
+	'es_extended',
+}
+
 ui_page "https://localhost:3000"
