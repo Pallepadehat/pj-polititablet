@@ -14,13 +14,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { redirect, useRouter } from "next/navigation";
-import { toast } from "@/components/ui/use-toast";
-import axios from "axios";
 
 export type Payment = {
   id: number;
   name: string;
-  foedselsdag: string;
+  age: string;
   licensePoints: number;
   hasLicense: boolean;
 };
@@ -28,24 +26,24 @@ export type Payment = {
 export const columns: ColumnDef<Payment>[] = [
   {
     accessorKey: "name",
-    header: "Navn og Efternavn",
+    header: "Borger Navn",
   },
   {
-    accessorKey: "foedselsdag",
-    header: "Fødselsdag",
+    accessorKey: "age",
+    header: "Alder",
   },
   {
-    accessorKey: "telefon",
-    header: "Telefon Nummer",
+    accessorKey: "licensePoints",
+    header: "Total Klip",
   },
   {
     accessorKey: "hasLicense",
-    header: () => <div className="text-left">Gyldigt Kørekort</div>,
+    header: () => <div className="text-left">Har kørekort</div>,
     cell: ({ row }) => {
-      const data = row.getValue("hasLicense");
+      const data = row.getValue("admin");
       return (
         <div className="text-left font-medium">
-          {data === true ? "Ja" : "Nej"}
+          {data == true ? "Ja" : "Nej"}
         </div>
       );
     },
@@ -55,29 +53,6 @@ export const columns: ColumnDef<Payment>[] = [
     cell: ({ row }) => {
       const payment = row.original;
       const router = useRouter();
-      const deleteBoger = async ({ id }: { id: number }) => {
-        try {
-          await axios.delete("/api/borger", { data: id });
-          toast({
-            title: "Borger Slettet.",
-            description: "Borgeren blev slettet fra systemet.",
-            variant: "ipad",
-            duration: 1500,
-          });
-          setTimeout(() => {
-            window.location.reload();
-          }, 1600);
-        } catch (error) {
-          toast({
-            title: "Noget gik galt!",
-            description: "Prøv igen sener, eller kontakt byens administrator.",
-            variant: "ipad",
-            duration: 1500,
-          });
-          console.log(error);
-        }
-      };
-
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -97,10 +72,7 @@ export const columns: ColumnDef<Payment>[] = [
               Sager
             </DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem
-              onClick={() => deleteBoger({ id: payment.id })}
-              className="text-red-500 hover:text-red-500"
-            >
+            <DropdownMenuItem className="text-red-500 hover:text-red-500">
               Slet Borger
             </DropdownMenuItem>
           </DropdownMenuContent>

@@ -21,10 +21,10 @@ const KriminalRegisterOverviewScreen = () => {
   return (
     <div className="w-full h-full">
       <div className="p-10">
-        <h1 className="text-4xl font-semibold text-white">kriminalregister</h1>
+        <h1 className="text-4xl font-semibold text-white">Kriminalregister</h1>
         <p className="text-white/60 text-sm">
-          Her kan du opret sager på borger, samt holde styr på hvilket sager
-          borger har haft tidligere
+          Her kan du opret en borger i systemet, eller tilføj en borger til
+          systemet.
         </p>
 
         <div className="pt-5 text-white">

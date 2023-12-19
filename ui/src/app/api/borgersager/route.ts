@@ -3,7 +3,7 @@ import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
 import { NextResponse } from "next/server";
 
-export async function GET() {
+export async function GET(req: Request) {
   try {
     const data = await getServerSession(authOptions);
 
@@ -11,7 +11,11 @@ export async function GET() {
       return new Response("Not authenticated", { status: 401 });
     }
 
-    const staff = await prisma.staff.findMany({});
+    const staff = await prisma.staff.findMany({
+      include: {
+        involvedOfficers: true,
+      },
+    });
 
     return NextResponse.json(staff);
   } catch (error) {

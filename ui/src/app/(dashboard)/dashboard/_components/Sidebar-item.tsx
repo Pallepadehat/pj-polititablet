@@ -26,8 +26,6 @@ import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const AboutMe = () => {
-  const onSignOut = () => signOut();
-
   return (
     <div className="w-full">
       <div className="flex flex-col w-full">
@@ -145,15 +143,15 @@ export const ActiveNews = () => {
       axios.patch("/api/notifications", { notifications: data });
       if (data === true) {
         toast({
-          title: "Notification Slået Til",
-          description: "Du ville nu begynde at modtage notificationer",
+          title: "Notifikationer Slået Til",
+          description: "Du ville nu begynde at modtage notifikationer",
           variant: "ipad",
           duration: 1500,
         });
       } else {
         toast({
-          title: "Notification Slået Fra",
-          description: "Du ville nu begynde at modtage notificationer",
+          title: "Notifikationer Slået Fra",
+          description: "Du ville nu begynde at modtage notifikationer",
           variant: "ipad",
           duration: 1500,
         });
@@ -189,7 +187,7 @@ export const ActiveNews = () => {
               <div className="w-8 h-8 bg-red-500 rounded-[7px] flex items-center justify-center">
                 <Bell />
               </div>
-              <h1 className="text-[18px]">Notificationer</h1>
+              <h1 className="text-[18px]">Notifikationer</h1>
             </div>
             <Switch
               onCheckedChange={(value) => setData(value)}

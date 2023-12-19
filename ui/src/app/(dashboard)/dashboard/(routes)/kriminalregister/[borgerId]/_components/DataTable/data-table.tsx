@@ -20,7 +20,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import OpretBorger from "./opret-borger";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -55,14 +54,13 @@ export function DataTable<TData, TValue>({
     <div>
       <div className="flex items-center py-4 flex-row justify-between">
         <Input
-          placeholder="Søg borgerens navn op..."
+          placeholder="Søg efter borger navn..."
           value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
           onChange={(event) =>
             table.getColumn("name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm text-black"
         />
-        <OpretBorger />
       </div>
       <div className="rounded-md w-full">
         <Table>

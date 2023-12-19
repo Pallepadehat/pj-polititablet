@@ -19,3 +19,52 @@ export async function GET() {
     return new NextResponse("Internal Error", { status: 500 });
   }
 }
+
+export async function POST(req: Request) {
+  try {
+    const data = await getServerSession(authOptions);
+
+    if (!data) {
+      return new Response("Not authenticated", { status: 401 });
+    }
+
+    const { name, foedselsdag, hasLicense, telefon } = await req.json();
+
+    const borger = await prisma.citizen.create({
+      data: {
+        name,
+        foedselsdag,
+        hasLicense,
+        telefon,
+      },
+    });
+
+    return NextResponse.json(borger);
+  } catch (error) {
+    console.log("[BORGER_POST]", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
+
+export async function DELETE(req: Request) {
+  try {
+    const isAuthenticated = await getServerSession(authOptions);
+
+    if (!isAuthenticated) {
+      return new Response("Not authenticated", { status: 401 });
+    }
+
+    const data = await req.json();
+
+    const borger = await prisma.citizen.delete({
+      where: {
+        id: data,
+      },
+    });
+
+    return NextResponse.json(borger);
+  } catch (error) {
+    console.log("[BORGER_DELETE]", error);
+    return new NextResponse("Internal Error", { status: 500 });
+  }
+}
