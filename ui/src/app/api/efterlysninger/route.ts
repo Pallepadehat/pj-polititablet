@@ -20,7 +20,7 @@ export async function GET() {
   }
 }
 
-export async function PATHC(req: Request) {
+export async function PATCH(req: Request) {
   try {
     const data = await getServerSession(authOptions);
 

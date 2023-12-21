@@ -2,6 +2,7 @@
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
+import { toast } from "@/components/ui/use-toast";
 import { cn } from "@/lib/utils";
 import { Citizen, Efterlysning } from "@prisma/client";
 import axios from "axios";
@@ -52,6 +53,25 @@ const BorgerOverviewPage = ({ params }: { params: number }) => {
     getEfterlysninger();
   }, []);
 
+  const closeEfterlysning = async (ids: number) => {
+    const id = ids;
+    const citizenId = params;
+    try {
+      await axios.patch("/api/efterlysninger", { citizenId, id });
+      toast({
+        title: "Efterlysning",
+        description: "Efterlysningen er blevet lukket.",
+        variant: "ipad",
+        duration: 1500,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1600);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="w-full max-h-[800px]">
       <div className="p-10 w-full h-full flex flex-col gap-10">
@@ -62,14 +82,24 @@ const BorgerOverviewPage = ({ params }: { params: number }) => {
             skulle have haft.
           </p>
         </div>
-        <div className={cn("pt-5 pb-5", efterlyst ? "visible" : "hidden")}>
+        <div
+          className={cn(
+            "pt-5 pb-5",
+            efterlyst?.closed == false ? "visible" : "hidden"
+          )}
+        >
           <Alert variant="destructive">
             <div className="flex flex-row justify-between w-full items-center">
               <div className="flex gap-2 pb-2 items-center">
                 <AlertCircleIcon className="w-7 h-7" />
                 <AlertTitle className="text-xl">Efterlyst!</AlertTitle>
               </div>
-              <Button variant="destructive">Afslut efterlysning</Button>
+              <Button
+                variant="destructive"
+                onClick={() => closeEfterlysning(efterlyst?.id!)}
+              >
+                Afslut efterlysning
+              </Button>
             </div>
 
             <AlertDescription className="flex flex-col gap-3">
@@ -82,26 +112,34 @@ const BorgerOverviewPage = ({ params }: { params: number }) => {
         </div>
 
         <div className="pt-5 text-white bg-[#1C1C1E] w-full h-full rounded-md">
-          <div className="px-5 flex flex-col gap-2 text-white">
-            <h1 className="font-semibold">
-              Navn: <span className="font-normal">{isBorger?.name}</span>
-            </h1>
-            <h1 className="font-semibold">
-              Fødselsdato:{" "}
-              <span className="font-normal">{isBorger?.foedselsdag}</span>
-            </h1>
-            <h1 className="font-semibold">
-              Telefonnummer:{" "}
-              <span className="font-normal">{isBorger?.telefon}</span>
-            </h1>
-            <h1 className="font-semibold flex gap-1">
-              Kørekort:{" "}
-              {isBorger?.hasLicense == true ? (
-                <p className="font-normal">Ja</p>
-              ) : (
-                <p className="font-normal">Nej</p>
-              )}
-            </h1>
+          <div
+            className="flex flex-row justify-between w-full
+          px-5"
+          >
+            <div className=" flex flex-col gap-2 text-white">
+              <h1 className="font-semibold">
+                Navn: <span className="font-normal">{isBorger?.name}</span>
+              </h1>
+              <h1 className="font-semibold">
+                Fødselsdato:{" "}
+                <span className="font-normal">{isBorger?.foedselsdag}</span>
+              </h1>
+              <h1 className="font-semibold">
+                Telefonnummer:{" "}
+                <span className="font-normal">{isBorger?.telefon}</span>
+              </h1>
+              <h1 className="font-semibold flex gap-1">
+                Kørekort:{" "}
+                {isBorger?.hasLicense == true ? (
+                  <p className="font-normal">Ja</p>
+                ) : (
+                  <p className="font-normal">Nej</p>
+                )}
+              </h1>
+            </div>
+            <div>
+              <Button variant="destructive">Opret Efterlysning</Button>
+            </div>
           </div>
         </div>
       </div>

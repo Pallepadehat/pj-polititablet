@@ -1,3 +1,4 @@
+import { Citizen } from "@prisma/client";
 import { authOptions } from "@/lib/authOption";
 import { prisma } from "@/lib/prisma";
 import { getServerSession } from "next-auth";
