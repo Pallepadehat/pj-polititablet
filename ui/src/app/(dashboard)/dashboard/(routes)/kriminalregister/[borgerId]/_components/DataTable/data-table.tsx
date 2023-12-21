@@ -20,6 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import OpretKr from "./opretkr";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -61,6 +62,7 @@ export function DataTable<TData, TValue>({
           }
           className="max-w-sm text-black"
         />
+        <OpretKr />
       </div>
       <div className="rounded-md w-full">
         <Table>

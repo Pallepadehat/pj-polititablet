@@ -13,46 +13,37 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 export type Payment = {
   id: number;
-  name: string;
-  age: string;
-  licensePoints: number;
-  hasLicense: boolean;
+  caseNumber: string;
+  responsible: string;
+  fineAmount: number;
+  prisonMonths: number;
 };
 
 export const columns: ColumnDef<Payment>[] = [
   {
-    accessorKey: "name",
-    header: "Borger Navn",
+    accessorKey: "caseNumber",
+    header: "CaseNumber",
   },
   {
-    accessorKey: "age",
-    header: "Alder",
+    accessorKey: "responsible",
+    header: "Oprettet af",
   },
   {
-    accessorKey: "licensePoints",
-    header: "Total Klip",
+    accessorKey: "fineAmount",
+    header: "Bøde beløb",
   },
   {
-    accessorKey: "hasLicense",
-    header: () => <div className="text-left">Har kørekort</div>,
-    cell: ({ row }) => {
-      const data = row.getValue("admin");
-      return (
-        <div className="text-left font-medium">
-          {data == true ? "Ja" : "Nej"}
-        </div>
-      );
-    },
+    accessorKey: "prisonMonths",
+    header: "Fængsel (I måneder)",
   },
   {
     id: "actions",
     cell: ({ row }) => {
-      const payment = row.original;
-      const router = useRouter();
+      const item = row.original;
       return (
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
@@ -62,18 +53,10 @@ export const columns: ColumnDef<Payment>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
-            <DropdownMenuLabel>{payment.name}</DropdownMenuLabel>
-            <DropdownMenuItem>Redigere</DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() =>
-                router.push(`/dashboard/kriminalregister/${payment.id}`)
-              }
-            >
-              Sager
-            </DropdownMenuItem>
+            <DropdownMenuLabel>Medvirkene Betjente</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuItem className="text-red-500 hover:text-red-500">
-              Slet Borger
+              Slet Sag
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

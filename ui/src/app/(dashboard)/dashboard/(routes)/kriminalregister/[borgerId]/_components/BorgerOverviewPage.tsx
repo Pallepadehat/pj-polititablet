@@ -9,15 +9,18 @@ import axios from "axios";
 import { AlertCircleIcon, AlertTriangle } from "lucide-react";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { DataTable } from "./DataTable/data-table";
+import { columns } from "./DataTable/columns";
 
 const BorgerOverviewPage = ({ params }: { params: number }) => {
   const [isBorger, setIsBorger] = useState<Citizen>();
   const [efterlyst, setIsEfterlyst] = useState<Efterlysning>();
+  const [sager, setSager] = useState([]);
 
   const getSager = async () => {
     try {
       const response = await axios.get(`/api/borgersager`);
-      console.log(response.data);
+      setSager(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -111,10 +114,10 @@ const BorgerOverviewPage = ({ params }: { params: number }) => {
           </Alert>
         </div>
 
-        <div className="pt-5 text-white bg-[#1C1C1E] w-full h-full rounded-md">
+        <div className="pt-5 text-white bg-[#1C1C1E] w-full h-full rounded-md px-5">
           <div
             className="flex flex-row justify-between w-full
-          px-5"
+          "
           >
             <div className=" flex flex-col gap-2 text-white">
               <h1 className="font-semibold">
@@ -140,6 +143,9 @@ const BorgerOverviewPage = ({ params }: { params: number }) => {
             <div>
               <Button variant="destructive">Opret Efterlysning</Button>
             </div>
+          </div>
+          <div className="mt-5">
+            <DataTable columns={columns} data={sager} />
           </div>
         </div>
       </div>
