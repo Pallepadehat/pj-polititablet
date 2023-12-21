@@ -6,6 +6,7 @@ import { Toast } from "@/components/ui/toast";
 import { toast } from "@/components/ui/use-toast";
 import { nuiCallback } from "@/lib/nuiCallback";
 import { cn } from "@/lib/utils";
+import { TabletUser } from "@prisma/client";
 import axios from "axios";
 import {
   ArrowRight,
@@ -61,6 +62,21 @@ export const AboutMe = () => {
 export default AboutMe;
 
 export const NavigationTabs = () => {
+  const [isUser, setIsUser] = useState<TabletUser>();
+  const user = async () => {
+    try {
+      const user = await axios.get("/api/getcop");
+      const userData = user.data;
+      setIsUser(userData);
+    } catch (error) {
+      console.log("Noget gik galt!", error);
+    }
+  };
+
+  useEffect(() => {
+    user();
+  }, []);
+
   const routes = [
     {
       id: 1,
@@ -86,27 +102,33 @@ export const NavigationTabs = () => {
       isAdmin: false,
       href: "/dashboard/kriminalregister",
     },
-
     {
       id: 4,
       label: "Administration",
       color: "bg-[#30D158]",
       Icon: LayoutDashboard,
-      isAdmin: false,
+      isAdmin: true,
       href: "/dashboard/administration",
     },
   ];
+
+  const isAdmin = isUser?.admin;
+  console.log(isAdmin);
+
+  const filteredRoutes = routes.filter(
+    (item) => (isUser?.admin && item.isAdmin) || !item.isAdmin
+  );
   return (
     <div>
       <div className="w-full">
         <div className="flex flex-col w-full">
-          {routes.map((item, idx) => (
+          {filteredRoutes.map((item, idx) => (
             <Link href={item.href} key={idx}>
               <div
                 className={cn(
                   "p-2 px-4 bg-[#1C1C1E]  w-full  flex flex-row gap-3 items-center",
-                  item.id === 1 && "rounded-t-[14px]",
-                  item.id === 4 && "rounded-b-[14px]"
+                  idx === 0 && "rounded-t-[14px]",
+                  idx === filteredRoutes.length - 1 && "rounded-b-[14px]"
                 )}
               >
                 <div className="flex w-full items-center ">
@@ -123,7 +145,9 @@ export const NavigationTabs = () => {
                   </div>
                 </div>
               </div>
-              {item.id !== 4 && <Separator className="bg-[#38383A]" />}
+              {idx !== filteredRoutes.length - 1 && (
+                <Separator className="bg-[#38383A]" />
+              )}
             </Link>
           ))}
         </div>

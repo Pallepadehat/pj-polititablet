@@ -25,7 +25,7 @@ const BorgerPage = ({ params }: { params: { borgerId: string } }) => {
         <div className="absolute inset-0 flex justify-center items-center text-black">
           <div className="w-[1110px] h-[800px] rounded-xl bg-[#000000]  flex flex-row">
             <DashboardSidebar />
-            <BorgerOverviewPage />
+            <BorgerOverviewPage params={parseInt(params.borgerId)} />
           </div>
         </div>
       </div>

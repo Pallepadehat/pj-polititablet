@@ -11,7 +11,11 @@ export async function GET() {
       return new Response("Not authenticated", { status: 401 });
     }
 
-    const citizen = await prisma.citizen.findMany();
+    const citizen = await prisma.citizen.findMany({
+      include: {
+        staffEntries: true,
+      },
+    });
 
     return NextResponse.json(citizen);
   } catch (error) {

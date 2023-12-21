@@ -32,6 +32,7 @@ model Citizen {
   staffEntries  Staff[]
   created       DateTime  @default(now())
   updated       DateTime  @updatedAt
+  efterlysninger Efterlysning[] @relation("CitizenEfterlysninger")
 }
 
 model Staff {
@@ -57,9 +58,14 @@ model Efterlysning {
   title         String
   beskrivelse   String
   tabletUserId  Int
+  citizenId     Int
+  closed        Boolean?
+  createdByUser TabletUser @relation("CreatedByUser", fields: [tabletUserId], references: [id])
+  citizen       Citizen    @relation("CitizenEfterlysninger", fields: [citizenId], references: [id])
+  
   created       DateTime  @default(now())
   updated       DateTime  @updatedAt
 
-  createdByUser TabletUser @relation("CreatedByUser", fields: [tabletUserId], references: [id])
   @@index([tabletUserId])
+  @@index([citizenId])
 }
