@@ -40,7 +40,7 @@ const OpretKr = () => {
 
   const getBorger = async () => {
     try {
-      const response = await axios.post("/api/borgerid", {
+      const response = await axios.patch("/api/borgerid", {
         id: params.borgerId,
       });
       setBorger(response.data);
@@ -158,20 +158,22 @@ const OpretKr = () => {
                   />
                 ))}
               </div>
+              <div className="mt-5 w-full flex justify-end space-x-2">
+                <DialogClose asChild>
+                  <Button className="bg-red-500 hover:bg-red-600">
+                    Annuller
+                  </Button>
+                </DialogClose>
+
+                <Button
+                  className="bg-green-500 hover:bg-green-600"
+                  onClick={handleSaveTaxes}
+                >
+                  Gem
+                </Button>
+              </div>
             </ScrollArea>
           </div>
-          <DialogFooter>
-            <DialogClose asChild>
-              <Button className="bg-red-500 hover:bg-red-600">Annuller</Button>
-            </DialogClose>
-
-            <Button
-              className="bg-green-500 hover:bg-green-600"
-              onClick={handleSaveTaxes}
-            >
-              Gem
-            </Button>
-          </DialogFooter>
         </DialogContent>
       </Dialog>
     </div>

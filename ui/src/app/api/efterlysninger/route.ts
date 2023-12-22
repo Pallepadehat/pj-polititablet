@@ -55,11 +55,17 @@ export async function POST(req: Request) {
       return new Response("Not authenticated", { status: 401 });
     }
 
-    const { beskrivelse, tabletUserId, citizenId } = await req.json();
+    const user = await prisma.tabletUser.findUnique({
+      where: {
+        email: data.user?.email!,
+      },
+    });
+
+    const { beskrivelse, citizenId } = await req.json();
 
     const efterlysninger = await prisma.efterlysning.create({
       data: {
-        tabletUserId,
+        tabletUserId: user?.id!,
         citizenId,
         beskrivelse,
         closed: false,

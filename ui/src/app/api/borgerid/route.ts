@@ -15,7 +15,7 @@ export async function PATCH(req: Request) {
 
     const citizen = await prisma.citizen.findUnique({
       where: {
-        id,
+        id: parseInt(id),
       },
       include: {
         staffEntries: true,
