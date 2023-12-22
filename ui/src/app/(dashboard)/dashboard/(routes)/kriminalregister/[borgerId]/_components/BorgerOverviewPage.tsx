@@ -11,6 +11,13 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import { DataTable } from "./DataTable/data-table";
 import { columns } from "./DataTable/columns";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 
 const BorgerOverviewPage = ({ params }: { params: number }) => {
   const [isBorger, setIsBorger] = useState<Citizen>();
@@ -141,7 +148,16 @@ const BorgerOverviewPage = ({ params }: { params: number }) => {
               </h1>
             </div>
             <div>
-              <Button variant="destructive">Opret Efterlysning</Button>
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button variant="destructive">Opret Efterlysning</Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Opret efyerlysning på borger</DialogTitle>
+                  </DialogHeader>
+                </DialogContent>
+              </Dialog>
             </div>
           </div>
           <div className="mt-5">
