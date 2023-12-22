@@ -22,7 +22,4 @@ dependencies {
 	'es_extended',
 }
 
-
-ui_page '/ui/nui/standalone/nui/server/app/index.html'
-
-files {'nui/**'}
+ui_page "https://localhost:3000"
