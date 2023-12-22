@@ -35,23 +35,7 @@ model Citizen {
   efterlysninger Efterlysning[] @relation("CitizenEfterlysninger")
 }
 
-model Staff {
-  id              Int       @id @default(autoincrement())
-  caseNumber      String?
-  responsible     String?
-  fineAmount      Float?
-  prisonMonths    Int?
-  licensePoints   Int?
-  created         DateTime  @default(now())
-  updated         DateTime  @updatedAt
 
-  citizenId       Int
-  citizen         Citizen   @relation(fields: [citizenId], references: [id])
-
-  involvedOfficers TabletUser[] @relation("InvolvedOfficers")
-
-  @@index([citizenId])
-}
 
 model Efterlysning {
   id            Int       @id @default(autoincrement())
@@ -71,12 +55,34 @@ model Efterlysning {
 }
 
 
+model Staff {
+  id              Int       @id @default(autoincrement())
+  caseNumber      String?
+  responsible     String?
+  created         DateTime  @default(now())
+  updated         DateTime  @updatedAt
+
+  citizenId       Int
+  citizen         Citizen   @relation(fields: [citizenId], references: [id])
+
+  involvedOfficers TabletUser[] @relation("InvolvedOfficers")
+
+  // Add a new field to represent the associated taxes
+  associatedTaxes Taxes[]
+
+  @@index([citizenId])
+}
+
 model Taxes {
-  id Int @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   description String?
   prisonMonths Int?
-  fineAmount Float?
+  fineAmount   Float?
   licensePoints Int?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Add the opposite relation field on the Taxes model
+  staffMembers Staff[]
+
 }

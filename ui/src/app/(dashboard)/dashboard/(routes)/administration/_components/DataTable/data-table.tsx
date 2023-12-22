@@ -1,16 +1,16 @@
 "use client";
-import * as React from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import {
   ColumnDef,
+  ColumnFiltersState,
   flexRender,
   getCoreRowModel,
-  useReactTable,
-  getPaginationRowModel,
-  ColumnFiltersState,
   getFilteredRowModel,
+  getPaginationRowModel,
+  useReactTable,
 } from "@tanstack/react-table";
+import * as React from "react";
 
 import {
   Table,
@@ -20,8 +20,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Loader2, RefreshCcw, RefreshCcwDot } from "lucide-react";
-import { useRouter } from "next/navigation";
+import OpretTax from "./oprettax";
 
 interface KROprettelseProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -52,27 +51,20 @@ export function KROprettelse<TData, TValue>({
     },
   });
 
-  const router = useRouter();
-
   return (
     <div>
       <div className="flex flex-row items-center justify-between py-4 text-black ">
         <Input
-          placeholder="Søg efer navn..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          placeholder="Søg efer beskrivelse..."
+          value={
+            (table.getColumn("description")?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn("description")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />
-        <Button
-          variant="ipad"
-          className="flex flex-row items-center gap-1"
-          onClick={() => window.location.reload()}
-        >
-          <RefreshCcw className="w-5 h-5" />
-          Refresh
-        </Button>
+        <OpretTax />
       </div>
       <div className="rounded-md w-full">
         <Table>

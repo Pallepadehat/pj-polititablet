@@ -6,6 +6,21 @@ import { KROprettelse } from "./DataTable/data-table";
 import { Ansattecolumns } from "./DataTable/columns";
 
 export const AdministrationOverview = () => {
+  const [taxes, setTaxes] = useState([]);
+  const getTaxes = async () => {
+    try {
+      const response = await axios.get("/api/taxes");
+      const data = response.data;
+      setTaxes(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getTaxes();
+  }, []);
+
   return (
     <div className="w-full h-full">
       <div className="p-10">
@@ -17,7 +32,7 @@ export const AdministrationOverview = () => {
           ad
         </div>
         <div className="pt-5 text-white">
-          <KROprettelse columns={Ansattecolumns} data={data} />
+          <KROprettelse columns={Ansattecolumns} data={taxes} />
         </div>
       </div>
     </div>

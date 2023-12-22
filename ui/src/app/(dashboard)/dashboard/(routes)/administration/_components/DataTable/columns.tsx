@@ -50,12 +50,12 @@ export const Ansattecolumns: ColumnDef<Payment>[] = [
       const router = useRouter();
       const onDelete = () => {
         try {
-          axios.delete("/api/user", {
+          axios.delete("/api/taxes", {
             data: payment.id,
           });
           toast({
-            title: "Bruger slettet.",
-            description: `Brugeren med navnet er blevet slettet`,
+            title: "Takst slettet.",
+            description: `Du har slettet taksten: "${payment.description}"`,
             variant: "ipad",
           });
           setTimeout(() => {
@@ -63,7 +63,7 @@ export const Ansattecolumns: ColumnDef<Payment>[] = [
           }, 1000);
         } catch (error) {
           toast({
-            title: "Fejl ved sletning af bruger.",
+            title: "Fejl ved sletning af taksten.",
             description: "Prøv igen, eller kontakt byen ejer.",
             variant: "ipad",
           });
