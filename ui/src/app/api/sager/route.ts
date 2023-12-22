@@ -20,6 +20,10 @@ export async function GET() {
   }
 }
 
+function generateRandom4DigitNumber(): number {
+  return Math.floor(1000 + Math.random() * 9000);
+}
+
 export async function POST(req: Request) {
   try {
     const data = await getServerSession(authOptions);
@@ -28,9 +32,22 @@ export async function POST(req: Request) {
       return new Response("Not authenticated", { status: 401 });
     }
 
-    const response = await req.json();
+    const random4DigitNumber: number = generateRandom4DigitNumber();
 
-    console.log(response);
+    const { fineAmount, prisonMonths, licensePoints, citizenId } =
+      await req.json();
+
+    const staff = await prisma.staff.create({
+      data: {
+        fineAmount,
+        prisonMonths,
+        licensePoints,
+        citizenId: parseInt(citizenId),
+        responsible: data.user?.name,
+        caseNumber: `#${random4DigitNumber}`,
+      },
+    });
+    return NextResponse.json(staff);
   } catch (error) {
     console.log("[SAGER_POST]", error);
     return new NextResponse("Internal Error", { status: 500 });

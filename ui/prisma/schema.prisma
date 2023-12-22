@@ -39,7 +39,6 @@ model Citizen {
 
 model Efterlysning {
   id            Int       @id @default(autoincrement())
-  title         String
   beskrivelse   String
   tabletUserId  Int
   citizenId     Int
@@ -59,6 +58,9 @@ model Staff {
   id              Int       @id @default(autoincrement())
   caseNumber      String?
   responsible     String?
+  fineAmount      Float?
+  prisonMonths    Int?
+  licensePoints   Int?
   created         DateTime  @default(now())
   updated         DateTime  @updatedAt
 
@@ -66,9 +68,6 @@ model Staff {
   citizen         Citizen   @relation(fields: [citizenId], references: [id])
 
   involvedOfficers TabletUser[] @relation("InvolvedOfficers")
-
-  // Add a new field to represent the associated taxes
-  associatedTaxes Taxes[]
 
   @@index([citizenId])
 }
@@ -82,7 +81,5 @@ model Taxes {
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
-  // Add the opposite relation field on the Taxes model
-  staffMembers Staff[]
 
 }

@@ -20,7 +20,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import OpretKr from "./opretkr";
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -46,25 +45,24 @@ export function DataTable<TData, TValue>({
     },
     initialState: {
       pagination: {
-        pageSize: 4,
+        pageSize: 3,
       },
     },
   });
 
   return (
     <div>
-      <div className="flex items-center py-4 flex-row justify-between">
+      <div className="flex items-center py-4">
         <Input
-          placeholder="Søg efter Sagsnummer..."
+          placeholder="Søg efer personnr..."
           value={
-            (table.getColumn("caseNumber")?.getFilterValue() as string) ?? ""
+            (table.getColumn("personid")?.getFilterValue() as string) ?? ""
           }
           onChange={(event) =>
-            table.getColumn("caseNumber")?.setFilterValue(event.target.value)
+            table.getColumn("personid")?.setFilterValue(event.target.value)
           }
-          className="max-w-sm text-black"
+          className="max-w-sm"
         />
-        <OpretKr />
       </div>
       <div className="rounded-md w-full">
         <Table>
@@ -110,7 +108,7 @@ export function DataTable<TData, TValue>({
                   colSpan={columns.length}
                   className="h-24 text-center"
                 >
-                  Borgeren har ingen sager
+                  Ingen Resultat
                 </TableCell>
               </TableRow>
             )}
@@ -121,7 +119,6 @@ export function DataTable<TData, TValue>({
         <Button
           variant="outline"
           size="sm"
-          className="text-black"
           onClick={() => table.previousPage()}
           disabled={!table.getCanPreviousPage()}
         >
@@ -130,7 +127,6 @@ export function DataTable<TData, TValue>({
         <Button
           variant="outline"
           size="sm"
-          className="text-black"
           onClick={() => table.nextPage()}
           disabled={!table.getCanNextPage()}
         >

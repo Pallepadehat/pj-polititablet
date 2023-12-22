@@ -14,7 +14,9 @@ import { PlusCircle } from "lucide-react";
 import KRCard from "../krCard";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { Taxes } from "@prisma/client";
+import { Citizen, Taxes } from "@prisma/client";
+import { useParams } from "next/navigation";
+import { toast } from "@/components/ui/use-toast";
 
 const OpretKr = () => {
   const [taxes, setTaxes] = useState<Taxes[]>();
@@ -22,6 +24,9 @@ const OpretKr = () => {
   const [totalFineAmount, setTotalFineAmount] = useState<number>(0);
   const [totalPrisonMonths, setTotalPrisonMonths] = useState<number>(0);
   const [totalLicensePoints, setTotalLicensePoints] = useState<number>(0);
+  const [borger, setBorger] = useState<Citizen>();
+
+  const params = useParams();
 
   const getTaxes = async () => {
     try {
@@ -33,8 +38,20 @@ const OpretKr = () => {
     }
   };
 
+  const getBorger = async () => {
+    try {
+      const response = await axios.post("/api/borgerid", {
+        id: params.borgerId,
+      });
+      setBorger(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getTaxes();
+    getBorger();
   }, []);
 
   useEffect(() => {
@@ -74,7 +91,21 @@ const OpretKr = () => {
 
   const handleSaveTaxes = async () => {
     try {
-      // You can use selectedTaxes for your logic to save taxes
+      await axios.post("/api/sager", {
+        fineAmount: totalFineAmount,
+        prisonMonths: totalPrisonMonths,
+        licensePoints: totalLicensePoints,
+        citizenId: params.borgerId,
+      });
+      toast({
+        title: `Sag oprettet`,
+        description: `Sag oprettet på ${borger?.name}`,
+        variant: "ipad",
+        duration: 1500,
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 1600);
     } catch (error) {
       console.error(error);
     }
@@ -90,7 +121,7 @@ const OpretKr = () => {
             className="text-md flex flex-row gap-2 items-center"
           >
             <PlusCircle className="w-5 h-5" />
-            Tilføj til
+            Tilføj til kr
           </Button>
         </DialogTrigger>
         <DialogContent className="bg-black/80 backdrop-blur-sm text-white w-[700px]  h-[650px]">
@@ -131,7 +162,7 @@ const OpretKr = () => {
           </div>
           <DialogFooter>
             <DialogClose asChild>
-              <Button className="bg-red-500 hover:bg-red-600">Anuller</Button>
+              <Button className="bg-red-500 hover:bg-red-600">Annuller</Button>
             </DialogClose>
 
             <Button

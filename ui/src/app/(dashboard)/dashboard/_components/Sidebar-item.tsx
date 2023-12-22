@@ -27,6 +27,44 @@ import { redirect, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export const AboutMe = () => {
+  const [notifications, setIsNotification] = useState();
+  const setData = async (data: any) => {
+    try {
+      axios.patch("/api/onduty", { onDuty: data });
+      if (data === true) {
+        toast({
+          title: "Du er nu på arbejde",
+          variant: "ipad",
+          duration: 1500,
+        });
+      } else {
+        toast({
+          title: "Du er gået af arbejde",
+          variant: "ipad",
+          duration: 1500,
+        });
+      }
+
+      setIsNotification(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  async function GETData() {
+    try {
+      const response = await axios.get("/api/onduty");
+      const responseData = response.data.onDuty; // Extract the relevant data from the response
+
+      setIsNotification(responseData);
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
+  useEffect(() => {
+    GETData();
+  }, []);
   return (
     <div className="w-full">
       <div className="flex flex-col w-full">
@@ -38,7 +76,10 @@ export const AboutMe = () => {
               </div>
               <h1 className="text-[18px]">On Duty</h1>
             </div>
-            <Switch />
+            <Switch
+              onCheckedChange={(value) => setData(value)}
+              checked={notifications}
+            />
           </div>
         </div>
 
