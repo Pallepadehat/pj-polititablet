@@ -73,9 +73,9 @@ model Efterlysning {
 
 model Taxes {
   id Int @id @default(autoincrement())
+  description String?
   prisonMonths Int?
   fineAmount Float?
-  description String?
   licensePoints Int?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
