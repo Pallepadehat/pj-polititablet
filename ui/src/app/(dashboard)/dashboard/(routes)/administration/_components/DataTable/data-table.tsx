@@ -23,15 +23,15 @@ import {
 import { Loader2, RefreshCcw, RefreshCcwDot } from "lucide-react";
 import { useRouter } from "next/navigation";
 
-interface AnsatteTableProps<TData, TValue> {
+interface KROprettelseProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
 }
 
-export function AnsatteTable<TData, TValue>({
+export function KROprettelse<TData, TValue>({
   columns,
   data,
-}: AnsatteTableProps<TData, TValue>) {
+}: KROprettelseProps<TData, TValue>) {
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
   );

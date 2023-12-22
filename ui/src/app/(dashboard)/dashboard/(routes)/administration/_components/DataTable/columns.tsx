@@ -20,53 +20,28 @@ import { useRouter } from "next/navigation";
 // You can use a Zod schema here if you want.
 export type Payment = {
   id: number;
-  email: string;
-  name: string;
-  admin: boolean;
-  pnummer: string;
-  onDuty: boolean;
+  prisonMonths: number;
+  fineAmount: number;
+  description: string;
+  licensePoints: number;
 };
 
 export const Ansattecolumns: ColumnDef<Payment>[] = [
   {
-    accessorKey: "id",
-    header: "ID",
+    accessorKey: "prisonMonths",
+    header: "Fængsel (i måneder)",
   },
   {
-    accessorKey: "email",
-    header: "Email",
+    accessorKey: "fineAmount",
+    header: "Bøde",
   },
   {
-    accessorKey: "name",
-    header: "Navn",
+    accessorKey: "description",
+    header: "Beskrivelse",
   },
   {
-    accessorKey: "admin",
-    header: () => <div className="text-left">System Adgang</div>,
-    cell: ({ row }) => {
-      const data = row.getValue("admin");
-      return (
-        <div className="text-left font-medium">
-          {data == true ? "Ja" : "Nej"}
-        </div>
-      );
-    },
-  },
-  {
-    accessorKey: "pnummer",
-    header: "PNummer",
-  },
-  {
-    accessorKey: "onDuty",
-    header: () => <div className="text-left">OnDuty</div>,
-    cell: ({ row }) => {
-      const data = row.getValue("onDuty");
-      return (
-        <div className="text-left font-medium">
-          {data == true ? "Ja" : "Nej"}
-        </div>
-      );
-    },
+    accessorKey: "licensePoints",
+    header: "Klip",
   },
   {
     id: "actions",
@@ -80,7 +55,7 @@ export const Ansattecolumns: ColumnDef<Payment>[] = [
           });
           toast({
             title: "Bruger slettet.",
-            description: `Brugeren med navnet ${payment.name} er blevet slettet`,
+            description: `Brugeren med navnet er blevet slettet`,
             variant: "ipad",
           });
           setTimeout(() => {
@@ -106,12 +81,11 @@ export const Ansattecolumns: ColumnDef<Payment>[] = [
             align="end"
             className="bg-black/90 backdrop-blur-sm text-white"
           >
-            <DropdownMenuLabel>{payment.name}</DropdownMenuLabel>
             <DropdownMenuItem
               className="text-red-500 hover:text-red-500"
               onClick={() => onDelete()}
             >
-              Slet Bruger
+              Slet
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

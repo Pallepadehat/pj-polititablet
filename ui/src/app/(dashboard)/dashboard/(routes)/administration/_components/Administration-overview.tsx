@@ -2,11 +2,10 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { DataTable } from "../../../_components/DataTable/data-table";
-import { columns } from "../../../_components/DataTable/columns";
+import { KROprettelse } from "./DataTable/data-table";
+import { Ansattecolumns } from "./DataTable/columns";
 
 export const AdministrationOverview = () => {
-  const data = [{ title: "" }];
   return (
     <div className="w-full h-full">
       <div className="p-10">
@@ -18,7 +17,7 @@ export const AdministrationOverview = () => {
           ad
         </div>
         <div className="pt-5 text-white">
-          <DataTable columns={columns} data={data} />
+          <KROprettelse columns={Ansattecolumns} data={data} />
         </div>
       </div>
     </div>
