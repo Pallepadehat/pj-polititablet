@@ -81,7 +81,7 @@ const OpretTax = () => {
           <PlusCircle className="w-5 h-5" /> <p>Tilføj Til Kr</p>
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-black/80 backdrop-blur-sm text-white">
+      <DialogContent className="bg-black/80 backdrop-blur-sm text-white w-[500px]">
         <DialogHeader>
           <DialogTitle>Tilføjelse til Kr</DialogTitle>
           <DialogDescription>Tilføj bøde takster til kr</DialogDescription>

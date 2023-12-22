@@ -1,5 +1,3 @@
-"use client";
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -20,10 +18,15 @@ import { Taxes } from "@prisma/client";
 
 const OpretKr = () => {
   const [taxes, setTaxes] = useState<Taxes[]>();
+  const [selectedTaxes, setSelectedTaxes] = useState<Taxes[]>([]);
+  const [totalFineAmount, setTotalFineAmount] = useState<number>(0);
+  const [totalPrisonMonths, setTotalPrisonMonths] = useState<number>(0);
+  const [totalLicensePoints, setTotalLicensePoints] = useState<number>(0);
+
   const getTaxes = async () => {
     try {
-      const repsonse = await axios.get("/api/taxes");
-      const data = repsonse.data;
+      const response = await axios.get("/api/taxes");
+      const data = response.data;
       setTaxes(data);
     } catch (error) {
       console.log(error);
@@ -34,7 +37,10 @@ const OpretKr = () => {
     getTaxes();
   }, []);
 
-  const [selectedTaxes, setSelectedTaxes] = useState<Taxes[]>([]);
+  useEffect(() => {
+    // Recalculate totals whenever selectedTaxes change
+    updateTotals(selectedTaxes);
+  }, [selectedTaxes]);
 
   const handleTaxSelect = (tax: Taxes) => {
     setSelectedTaxes((prevSelectedTaxes) => {
@@ -52,8 +58,23 @@ const OpretKr = () => {
     });
   };
 
+  const updateTotals = (selectedTaxes: Taxes[]) => {
+    setTotalFineAmount(
+      selectedTaxes.reduce((total, tax) => total + (tax.fineAmount || 0), 0)
+    );
+
+    setTotalPrisonMonths(
+      selectedTaxes.reduce((total, tax) => total + (tax.prisonMonths || 0), 0)
+    );
+
+    setTotalLicensePoints(
+      selectedTaxes.reduce((total, tax) => total + (tax.licensePoints || 0), 0)
+    );
+  };
+
   const handleSaveTaxes = async () => {
     try {
+      // You can use selectedTaxes for your logic to save taxes
     } catch (error) {
       console.error(error);
     }
@@ -78,6 +99,20 @@ const OpretKr = () => {
             <DialogDescription>Tilføj en staf til borgeren </DialogDescription>
           </DialogHeader>
           <div className="w-full h-full">
+            <div className="pb-2 flex flex-col gap-2">
+              <h1 className="font-semibold">
+                Total Bøde Beløb:{" "}
+                <span className="font-normal">{totalFineAmount}</span>
+              </h1>
+              <h1 className="font-semibold">
+                Total Fængsels Tid:{" "}
+                <span className="font-normal">{totalPrisonMonths}</span>
+              </h1>
+              <h1 className="font-semibold">
+                Total Klip:{" "}
+                <span className="font-normal">{totalLicensePoints}</span>
+              </h1>
+            </div>
             <ScrollArea className="h-[500px]">
               <div className=" flex flex-col gap-2">
                 {taxes?.map((item, idx) => (
