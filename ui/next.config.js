@@ -3,8 +3,12 @@ const nextConfig = {
   experimental: {
     serverComponentsExternalPackages: ["@prisma/client", "bcrypt"],
   },
-
-  distDir: "build",
+  reactStrictMode: true,
+  output: "standalone",
+  distDir: "nui",
+  images: {
+    unoptimized: true,
+  },
 };
 
 module.exports = nextConfig;

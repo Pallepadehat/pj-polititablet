@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import axios from "axios";
 import { toast } from "@/components/ui/use-toast";
-import { useRouter } from "next/navigation";
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -72,7 +71,7 @@ export const Ansattecolumns: ColumnDef<Payment>[] = [
     id: "actions",
     cell: ({ row }) => {
       const payment = row.original;
-      const router = useRouter();
+
       const onDelete = () => {
         try {
           axios.delete("/api/user", {

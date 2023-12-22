@@ -13,10 +13,6 @@ import { useSelector } from "react-redux";
 // Component for displaying icons (e.g., signal strength, Wi-Fi, battery)
 
 export default function Home() {
-  const searchParams = useSearchParams();
-  const display = useSelector((state: RootState) => state.app.display);
-
-  // Unconditionally call useSession at the top level
   const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
@@ -24,7 +20,11 @@ export default function Home() {
     },
   });
 
+  const searchParams = useSearchParams();
+  const display = useSelector((state: RootState) => state.app.display);
+
   if (!display && !searchParams.get("preview")) return null;
+
   return (
     <div className="flex justify-center items-center h-screen">
       <div className="relative w-[1200px] h-[900px]">

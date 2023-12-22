@@ -13,9 +13,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { redirect, useRouter } from "next/navigation";
 import { toast } from "@/components/ui/use-toast";
 import axios from "axios";
+import { redirect } from "next/navigation";
 
 export type Payment = {
   id: number;
@@ -54,7 +54,7 @@ export const columns: ColumnDef<Payment>[] = [
     id: "actions",
     cell: ({ row }) => {
       const payment = row.original;
-      const router = useRouter();
+
       const deleteBoger = async ({ id }: { id: number }) => {
         try {
           await axios.delete("/api/borger", { data: id });
@@ -91,7 +91,7 @@ export const columns: ColumnDef<Payment>[] = [
             <DropdownMenuItem>Redigere</DropdownMenuItem>
             <DropdownMenuItem
               onClick={() =>
-                router.push(`/dashboard/kriminalregister/${payment.id}`)
+                redirect(`/dashboard/kriminalregister/${payment.id}`)
               }
             >
               Sager

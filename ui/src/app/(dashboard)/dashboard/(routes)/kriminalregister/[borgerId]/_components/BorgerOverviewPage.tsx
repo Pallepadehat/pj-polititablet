@@ -2,15 +2,6 @@
 
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
-import { toast } from "@/components/ui/use-toast";
-import { cn } from "@/lib/utils";
-import { Citizen, Efterlysning, TabletUser } from "@prisma/client";
-import axios from "axios";
-import { AlertCircleIcon, AlertTriangle } from "lucide-react";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { DataTable } from "./DataTable/data-table";
-import { columns } from "./DataTable/columns";
 import {
   Dialog,
   DialogContent,
@@ -19,21 +10,27 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import * as z from "zod";
+import { toast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Citizen, Efterlysning, TabletUser } from "@prisma/client";
+import axios from "axios";
+import { AlertCircleIcon } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { columns } from "./DataTable/columns";
+import { DataTable } from "./DataTable/data-table";
 
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { getSession, useSession } from "next-auth/react";
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const formSchema = z.object({
@@ -67,24 +64,35 @@ const BorgerOverviewPage = ({ params }: { params: number }) => {
     }
   };
 
-  const getEfterlysninger = async () => {
-    try {
-      const data = await axios.patch("/api/efterlysninger/getbyid", {
-        id: params,
-      });
-      const efterlysning = data.data;
-      console.log("Efterlysning", efterlysning);
-      setIsEfterlyst(efterlysning);
-    } catch (error) {
-      console.log("Error!", error);
-    }
-  };
-
   useEffect(() => {
+    const getBorger = async () => {
+      try {
+        const response = await axios.patch("/api/borgerid", {
+          id: params,
+        });
+        const data = response.data;
+        setIsBorger(data);
+      } catch (error) {
+        console.log("Error!", error);
+      }
+    };
+
+    const getEfterlysninger = async () => {
+      try {
+        const data = await axios.patch("/api/efterlysninger/getbyid", {
+          id: params,
+        });
+        const efterlysning = data.data;
+        setIsEfterlyst(efterlysning);
+      } catch (error) {
+        console.log("Error!", error);
+      }
+    };
+
     getSager();
     getBorger();
     getEfterlysninger();
-  }, []);
+  }, [params]); // Include params in the dependency array
 
   const closeEfterlysning = async (ids: number) => {
     const id = ids;

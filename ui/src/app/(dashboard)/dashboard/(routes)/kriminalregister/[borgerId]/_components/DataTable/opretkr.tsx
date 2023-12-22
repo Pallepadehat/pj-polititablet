@@ -38,21 +38,21 @@ const OpretKr = () => {
     }
   };
 
-  const getBorger = async () => {
-    try {
-      const response = await axios.patch("/api/borgerid", {
-        id: params.borgerId,
-      });
-      setBorger(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
+    const getBorger = async () => {
+      try {
+        const response = await axios.patch("/api/borgerid", {
+          id: params.borgerId,
+        });
+        setBorger(response.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
     getTaxes();
     getBorger();
-  }, []);
+  }, [params]);
 
   useEffect(() => {
     // Recalculate totals whenever selectedTaxes change

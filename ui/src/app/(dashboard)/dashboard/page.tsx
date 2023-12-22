@@ -11,17 +11,17 @@ import { RootState } from "@/state/store";
 import { useEffect } from "react";
 
 const DashboardPage = () => {
-  const searchParams = useSearchParams();
-  const display = useSelector((state: RootState) => state.app.display);
-
-  if (!display && !searchParams.get("preview")) return null;
-
   const { status, data: session } = useSession({
     required: true,
     onUnauthenticated() {
       redirect("/");
     },
   });
+
+  const searchParams = useSearchParams();
+  const display = useSelector((state: RootState) => state.app.display);
+
+  if (!display && !searchParams.get("preview")) return null;
 
   return (
     <div className="flex justify-center items-center h-screen">

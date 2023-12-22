@@ -47,7 +47,6 @@ export const Ansattecolumns: ColumnDef<Payment>[] = [
     id: "actions",
     cell: ({ row }) => {
       const payment = row.original;
-      const router = useRouter();
       const onDelete = () => {
         try {
           axios.delete("/api/taxes", {
