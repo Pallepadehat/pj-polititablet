@@ -1,25 +1,4 @@
-# FiveM resource
-
-This is the FiveM Resource for the nextjs example
-
-Use this as a starting point for your next FiveM project.
-
-## ⚠️ Important
-
-If you choose to rename the folder `fivem-nextjs-example` to something else, make sure to update the `NEXT_PUBLIC_RESOURCE_NAME` in the [`.env`](/ui/.env) file. in the `ui` folder
-
-If you are using vercel to deploy your ui, make sure to update the environment variables in the vercel dashboard
-
-
-
-## Usage
-
-Join your server and press the hotkey (default: `H`) to open the menu.
-
-
-En god README-fil til et open source-projekt skal give potentielle brugere og bidragydere en klar forståelse af, hvad projektet handler om, hvordan man bruger det, og hvordan man kan bidrage. Her er et eksempel på en README-fil, der dækker de vigtigste elementer:
-
-```markdown
+```
 # [Projektets navn]
 
 ![Build Status](https://img.shields.io/github/workflow/status/organisation/projektets-navn/CI)
