@@ -1,4 +1,4 @@
-```
+
 # [Projektets navn]
 
 ![Build Status](https://img.shields.io/github/workflow/status/organisation/projektets-navn/CI)
