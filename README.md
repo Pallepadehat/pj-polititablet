@@ -44,7 +44,7 @@ Vi sætter pris på alle bidrag! Følg disse trin for at bidrage til projektet:
 
 ## Problemer og fejlrapportering
 
-Hvis du støder på problemer eller fejl, bedes du rapportere dem via [GitHub-issues](https://github.com/organisation/projektets-navn/issues). Vi arbejder hårdt på at løse problemerne så hurtigt som muligt.
+Hvis du støder på problemer eller fejl, bedes du rapportere dem via [GitHub-issues](https://github.com/Pallepadehat/pj-polititablet/issues). Vi arbejder hårdt på at løse problemerne så hurtigt som muligt.
 
 ## Licens
 
