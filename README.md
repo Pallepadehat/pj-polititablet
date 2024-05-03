@@ -5,7 +5,7 @@
 
 ## Introduktion
 
-Velkommen til pj-polititablet! Dette er et open source-projekt.
+Velkommen til pj-polititablet! Dette er et open source-projekt. Bemærk, at denne kode ikke er optimeret og ikke er blevet vedligeholdt.
 
 ## Installation
 
