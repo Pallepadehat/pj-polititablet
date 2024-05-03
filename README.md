@@ -64,4 +64,3 @@ Hvis du har spørgsmål eller forslag, er du velkommen til at kontakte os via [e
 ## Tak
 
 Tak for din interesse i [Projektets navn]! Vi håber, du finder det nyttigt og bidrager til dets udvikling.
-```
