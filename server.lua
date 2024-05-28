@@ -1,5 +1,0 @@
-RegisterServerEvent(cfg.resourceName..":getServerName")
-AddEventHandler(cfg.resourceName..":getServerName", function()
-    local serverName = GetConvar("sv_hostname", "Default Server Name")
-    TriggerClientEvent(cfg.resourceName..":getServerName", source, serverName)
-end)
